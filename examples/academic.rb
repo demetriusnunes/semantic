@@ -1,14 +1,4 @@
-Semantic is a Ruby library for dealing with RDF, RDF(s) and related Semantic Web
-languages and technologies.
-
-Semantic is written in the Ruby Way because even when dealing with RDF(s)
-constructs, Ruby should still feel like Ruby and not at all like XML.
-
-Take the sample model in this presentation:
-http://www.cs.rpi.edu/~puninj/XMLJ/classes/class8/slide35-0.html
-http://www.cs.rpi.edu/~puninj/XMLJ/classes/class8/slide36-0.html
-
-In Semantic, this should be written like this:
+require 'semantic'
 
 module AcademicExample
   namespace "http://www.cs.rpi.edu/~puninj/XMLJ/course_schema.rdf"
