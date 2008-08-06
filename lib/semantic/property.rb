@@ -45,8 +45,8 @@ module Rdfs
       self
     end
 
-    def comment(str)
-      @comment = str
+    def comment(str = nil)
+      str ? @comment = str : @comment
     end
     
     def domain(arr)
