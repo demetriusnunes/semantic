@@ -5,6 +5,17 @@ module Kernel
     @@properties[sym] = Rdfs::Property.new(sym, opts, &block)
   end
     
+  def list_accessor(*args)
+    for arg in args
+      module_eval do
+        define_method arg do
+         instance_variable_set("@#{arg}", []) unless instance_variable_defined?("@#{arg}")
+         instance_variable_get("@#{arg}")
+        end
+      end
+    end
+  end
+  
 end
 
 module Rdfs
@@ -22,22 +33,12 @@ module Rdfs
       domain opts[:domain] if opts[:domain]
       
       @domain.flatten.compact.each do |domain|
-        domain.module_eval do
-          define_method sym do
-          end
-          
-          define_method "#{sym}=" do |value|
-          end
-        end
+        domain.module_eval { attr_accessor sym }
       end
       
       if @range.flatten.compact.any? { |r| r == Rdf::Seq }
         @domain.flatten.compact.each do |domain|
-          domain.module_eval do
-            define_method sym do
-              []
-            end
-          end
+          domain.module_eval { list_accessor sym }
         end
       end
       
