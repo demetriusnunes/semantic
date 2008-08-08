@@ -5,6 +5,9 @@ module Kernel
     uri ? set_namespace(self, uri) : find_namespace(self)
   end
 
+  def container
+  end
+
   private
   
   def set_namespace(klass, uri)
@@ -21,5 +24,5 @@ module Kernel
     }
     nil
   end
-    
+
 end

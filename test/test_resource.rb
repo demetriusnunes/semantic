@@ -18,11 +18,11 @@ class TestResource < Test::Unit::TestCase
     end
     
     should "have a specific namespace" do
-      assert_equal("http://www.w3.org/2000/01/rdf-schema", Rdfs::Resource.namespace)
+      assert_equal("http://www.w3.org/2000/01/rdf-schema#", Rdfs::Resource.namespace)
     end
     
     should "have a comment macro" do
-      assert_equal("This is a sample resource", SampleResource.comment)
+      assert_equal("This is a sample resource", SampleResource.comment.to_s)
     end
     
     should "be assigned an auto-generated uri composed of namespace+uuid if none given" do
