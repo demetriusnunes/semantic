@@ -12,7 +12,7 @@ class TestProperty < Test::Unit::TestCase
     end
     
     should "have a specific namespace" do
-      assert_equal("http://www.w3.org/1999/02/22-rdf-syntax-ns#", Rdf::Property.namespace)
+      assert_equal("http://www.w3.org/1999/02/22-rdf-syntax-ns#", Rdf::Property.namespace.uri)
     end
     
   end

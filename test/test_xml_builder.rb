@@ -33,6 +33,20 @@ class TestXmlBuilder < Test::Unit::TestCase
       assert_equal "<temp:comment attr1=\"value1\">hello</temp:comment>", 
         @builder.comment("hello", "attr1" => "value1")
     end
+    
+    should "accept raw data for inner values" do
+      assert_equal "<temp:comment attr1=\"value1\">hello</temp:comment>", 
+        @builder.comment("attr1" => "value1") { |xml| xml << "hello" }
+    end
+
+    should "accept raw data for inner values combined with method values" do
+      assert_equal "<temp:comment attr1=\"value1\">hello<temp:sub>subvalue</temp:sub></temp:comment>", 
+        @builder.comment("attr1" => "value1") { |xml| 
+          xml << "hello" 
+          xml.sub("subvalue")
+        }
+    end
+
   end
   
 end

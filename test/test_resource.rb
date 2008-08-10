@@ -8,7 +8,7 @@ class TestResource < Test::Unit::TestCase
       assert_nothing_raised {
         Object.module_eval do
           class SampleResource < Rdfs::Resource
-            namespace "http://temp-uri/sampleresource"
+            namespace "sample" => "http://temp-uri/sampleresource"
             comment "This is a sample resource"
             property :name, :range => Rdf::Literal
             property :list, :range => Rdf::Seq
@@ -18,7 +18,7 @@ class TestResource < Test::Unit::TestCase
     end
     
     should "have a specific namespace" do
-      assert_equal("http://www.w3.org/2000/01/rdf-schema#", Rdfs::Resource.namespace)
+      assert_equal("http://www.w3.org/2000/01/rdf-schema#", Rdfs::Resource.namespace.uri)
     end
     
     should "have a comment macro" do
@@ -27,12 +27,12 @@ class TestResource < Test::Unit::TestCase
     
     should "be assigned an auto-generated uri composed of namespace+uuid if none given" do
       sr = SampleResource.new
-      assert(sr.uri =~ Regexp.new("#{sr.class.namespace}\/[0-9|a-f]{32}"))
+      assert(sr.uri =~ Regexp.new("#{sr.class.namespace.uri}\/[0-9|a-f]{32}"), sr.uri)
     end
 
     should "have an uri composed of its namespace + a give id" do
       sr = SampleResource.new("sample1")
-      assert(sr.uri =~ Regexp.new("#{sr.class.namespace}\/sample1"))
+      assert(sr.uri =~ Regexp.new("#{sr.class.namespace.uri}\/sample1"), "#{sr.class.namespace} =~ #{sr.uri}")
     end
 
     should "be initialized within a block" do
@@ -49,6 +49,15 @@ class TestResource < Test::Unit::TestCase
       assert_equal(2, @resource.list.size)
       assert(@resource.list.include?("a"))
       assert(@resource.list.include?("b"))
+    end
+    
+    should "have its #to_xml output correctly" do
+      assert_equal(
+        '<rdfs:Class rdf:ID="SampleResource">' <<
+         '<rdfs:comment>This is a sample resource</rdfs:comment>' <<
+         '<rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>' <<
+         '</rdfs:Class>',
+        SampleResource.to_xml, SampleResource.inspect)
     end
   end
   

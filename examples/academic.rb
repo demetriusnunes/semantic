@@ -36,10 +36,11 @@ end
 
 include AcademicExample
 
-Course.new("csci_2962") { |c|
+$csci_2961 = Course.new("csci_2962") { |c|
   c.name = "Programming XML in Java"
   c.teacher = Teacher.new("jp") { |t| t.name = "John Punin" }
   c.students << Student.new("er") { |s| s.name = "Elizabeth Roberts" }
   c.students << Student.new("gl") { |s| s.name = "George Lucas" }
   c.students << Student.new("js") { |s| s.name = "John Smith" }
-}.to_xml
+}
+puts $csci_2961.to_xml

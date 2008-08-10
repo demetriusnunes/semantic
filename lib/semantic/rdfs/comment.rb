@@ -1,6 +1,7 @@
+
 module Rdfs
-  
-  class Comment
+
+  class Comment < Rdf::Property
     attr_reader :value
     
     def initialize(str)
@@ -9,8 +10,7 @@ module Rdfs
 
     def to_s; @value end
     
-    def to_xml; Rdfs.xml_builder.comment(@value) end
-    
+    def to_xml; xml_builder.comment(@value) end
   end
   
 end

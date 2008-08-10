@@ -1,4 +1,4 @@
 module Rdf
-  class Seq
+  class Seq < Rdfs::Container
   end
 end

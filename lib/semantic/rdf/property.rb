@@ -1,7 +1,6 @@
 module Rdf
   
-  class Property
-  
+  class Property < Rdfs::Resource
     attr_accessor :range, :domain
     
     def initialize(sym, opts = {}, &block)
@@ -55,11 +54,9 @@ module Kernel
     end
   end
 
-  def has_properties
-    module_eval do
-      def self.property(sym, opts = {}, &block)
-        Kernel.property(sym, opts.merge(:domain => self), &block)
-      end
+  Rdfs::Resource.instance_eval do
+    def property(sym, opts = {}, &block)
+      Kernel.property(sym, opts.merge(:domain => self), &block)
     end
   end
   
