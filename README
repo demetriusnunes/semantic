@@ -34,7 +34,7 @@ module AcademicExample
   property :name do
     comment "Name of a Person or Course"
     domain [ Person, Course ]
-    range Rdf::Literal    
+    range Rdfs::Literal    
   end
   
   property :students do

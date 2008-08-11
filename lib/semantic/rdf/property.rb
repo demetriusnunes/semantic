@@ -1,9 +1,23 @@
 module Rdf
   
   class Property < Rdfs::Resource
-    attr_accessor :range, :domain
     
+    @@properties = {}
+    def self.all
+      @@properties
+    end
+
+    def self.for_domain(*domains)
+      properties = []
+      domains.each do |domain|
+        properties << all.values.select { |p| p.domain.include?(domain) }
+      end
+      properties.flatten
+    end
+    
+    attr_accessor :uri
     def initialize(sym, opts = {}, &block)
+      @uri = Uri.join(self.class.namespace.uri, sym)
       @domain = []
       @range = []
       
@@ -25,12 +39,12 @@ module Rdf
       self
     end
 
-    def domain(arr)
-      @domain << arr
+    def domain(arr = nil)
+      arr ? @domain << arr : @domain
     end    
     
-    def range(arr)
-      @range << arr
+    def range(arr = nil)
+      arr ? @range << arr : @range
     end
   end
 
@@ -38,9 +52,8 @@ end
 
 module Kernel
 
-  @@properties = {}
   def property(sym, opts = {}, &block)
-    @@properties[sym] = Rdf::Property.new(sym, opts, &block)
+    Rdf::Property.all[sym] = Rdf::Property.new(sym, opts, &block)
   end
     
   def list_accessor(*args)

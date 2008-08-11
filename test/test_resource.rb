@@ -10,7 +10,7 @@ class TestResource < Test::Unit::TestCase
           class SampleResource < Rdfs::Resource
             namespace "sample" => "http://temp-uri/sampleresource"
             comment "This is a sample resource"
-            property :name, :range => Rdf::Literal
+            property :name, :range => Rdfs::Literal
             property :list, :range => Rdf::Seq
           end
         end

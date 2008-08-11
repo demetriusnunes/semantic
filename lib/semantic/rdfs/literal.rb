@@ -1,4 +1,4 @@
-module Rdf
+module Rdfs
   class Literal
   end
 end

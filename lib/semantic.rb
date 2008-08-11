@@ -18,3 +18,4 @@ require 'semantic/rdf/seq'
 
 require 'semantic/rdfs/comment'
 require 'semantic/rdfs/literal'
+require 'semantic/rdfs/datatype'
