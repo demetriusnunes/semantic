@@ -16,7 +16,7 @@ module Rdf
         domain.module_eval { attr_accessor sym }
       end
       
-      if @range.flatten.compact.any? { |r| r == Rdf::Seq }
+      if @range.flatten.compact.any? { |r| r.ancestors.include? Rdfs::Container }
         @domain.flatten.compact.each do |domain|
           domain.module_eval { list_accessor sym }
         end
